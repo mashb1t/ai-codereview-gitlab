@@ -10,7 +10,8 @@ from apscheduler.triggers.cron import CronTrigger
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 
-from biz.gitlab.webhook_handler import slugify_url
+from biz.github.webhook_handler import verify_github_signature
+from biz.gitlab.webhook_handler import slugify_url, verify_gitlab_webhook_secret_token
 from biz.queue.worker import handle_merge_request_event, handle_push_event, handle_github_pull_request_event, handle_github_push_event
 from biz.service.review_service import ReviewService
 from biz.utils.config_checker import check_config
@@ -128,17 +129,24 @@ def handle_webhook():
 
 
 def handle_github_webhook(event_type, data):
-    # 获取GitHub配置
-    github_token = os.getenv('GITHUB_ACCESS_TOKEN') or request.headers.get('X-GitHub-Token')
-    if not github_token:
-        return jsonify({'message': _('Missing GitLab URL')}), 400
-
-    github_url = os.getenv('GITHUB_URL') or 'https://github.com'
-    github_url_slug = slugify_url(github_url)
-
     # 打印整个payload数据
     logger.info(_('Received event: {}').format(event_type))
     logger.info(_('Payload: {}').format(json.dumps(data)))
+
+    # 获取GitHub配置
+    github_token = os.getenv('GITHUB_ACCESS_TOKEN')
+    if not github_token:
+        return jsonify({'message': _('Missing GitHub access token')}), 400
+
+    # 获取GitHub Webhook Secret Token
+    payload_body = request.get_data()
+    github_webhook_secret_token_env = os.getenv('GITHUB_WEBHOOK_SECRET_TOKEN')
+    github_webhook_secret_token_request = request.headers.get('X-Hub-Signature-256')
+    if not verify_github_signature(payload_body, github_webhook_secret_token_env, github_webhook_secret_token_request):
+        return jsonify({'message': _('GitHub Webhook Secret Token mismatch')}), 403
+
+    github_url = os.getenv('GITHUB_URL') or 'https://github.com'
+    github_url_slug = slugify_url(github_url)
 
     if event_type == "pull_request":
         # 使用handle_queue进行异步处理
@@ -178,17 +186,22 @@ def handle_gitlab_webhook(data):
         except Exception as e:
             return jsonify({"error": _("Failed to parse homepage URL: {}").format(str(e))}), 400
 
-    # 优先从环境变量获取，如果没有，则从请求头获取
-    gitlab_token = os.getenv('GITLAB_ACCESS_TOKEN') or request.headers.get('X-Gitlab-Token')
+    # 打印整个payload数据，或根据需求进行处理
+    logger.info(_('Received event: {}').format(object_kind))
+    logger.info(_('Payload: {}').format(json.dumps(data)))
+
+    gitlab_token = os.getenv('GITLAB_ACCESS_TOKEN')
     # 如果gitlab_token为空，返回错误
     if not gitlab_token:
         return jsonify({'message': _('Missing GitLab access token')}), 400
 
-    gitlab_url_slug = slugify_url(gitlab_url)
+    gitlab_webhook_secret_token_env = os.getenv('GITLAB_WEBHOOK_SECRET_TOKEN')
+    gitlab_webhook_secret_token_request = request.headers.get('X-Gitlab-Token')
+    if not verify_gitlab_webhook_secret_token(gitlab_webhook_secret_token_env, gitlab_webhook_secret_token_request):
+        logger.error(_("GitLab Webhook Secret Token mismatch"))
+        return jsonify({'message': _('GitLab Webhook Secret Token mismatch')}), 403
 
-    # 打印整个payload数据，或根据需求进行处理
-    logger.info(_('Received event: {}').format(object_kind))
-    logger.info(_('Payload: {}').format(json.dumps(data)))
+    gitlab_url_slug = slugify_url(gitlab_url)
 
     # 处理Merge Request Hook
     if object_kind == "merge_request":
@@ -199,7 +212,6 @@ def handle_gitlab_webhook(data):
             object_kind)}), 200
     elif object_kind == "push":
         # 创建一个新进程进行异步处理
-        # TODO check if PUSH_REVIEW_ENABLED is needed here
         handle_queue(handle_push_event, data, gitlab_token, gitlab_url, gitlab_url_slug)
         # 立马返回响应
         return jsonify({'message': _('Request received(object_kind={}), will process asynchronously.').format(
