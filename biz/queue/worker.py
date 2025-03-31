@@ -79,7 +79,7 @@ def handle_merge_request_event(webhook_data: dict, gitlab_token: str, gitlab_url
         handler = MergeRequestHandler(webhook_data, gitlab_token, gitlab_url)
         logger.info(_('Merge Request Hook event received'))
 
-        if handler.action not in ['opened', 'update']:
+        if handler.action not in ['open', 'update']:
             logger.info(_("Merge Request Hook event, action={}, ignored.").format(handler.action))
             return
 
