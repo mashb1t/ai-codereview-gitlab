@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-29 16:32+0100\n"
+"POT-Creation-Date: 2025-04-03 22:45+0200\n"
 "PO-Revision-Date: 2025-03-18 15:05+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,69 +16,81 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: api.py:57 api.py:58
+#: api.py:58 api.py:59
 msgid "No data to process."
 msgstr ""
 
-#: api.py:68
+#: api.py:69
 msgid "代码提交日报"
 msgstr ""
 
-#: api.py:73
+#: api.py:74
 msgid "Failed to generate daily report: {}"
 msgstr ""
 
-#: api.py:101
+#: api.py:102
 msgid "Scheduler started successfully."
 msgstr ""
 
-#: api.py:106
+#: api.py:107
 msgid "Error setting up scheduler: {}"
 msgstr ""
 
-#: api.py:117
+#: api.py:118
 msgid "Invalid JSON"
 msgstr ""
 
-#: api.py:127
+#: api.py:128
 msgid "Invalid data format"
 msgstr ""
 
-#: api.py:134 api.py:171 api.py:174
-msgid "Missing GitLab URL"
-msgstr ""
-
-#: api.py:140 api.py:190
+#: api.py:133 api.py:190
 msgid "Received event: {}"
 msgstr ""
 
-#: api.py:141 api.py:191
+#: api.py:134 api.py:191
 msgid "Payload: {}"
 msgstr ""
 
-#: api.py:147 api.py:153
+#: api.py:139
+msgid "Missing GitHub access token"
+msgstr ""
+
+#: api.py:146
+msgid "GitHub Webhook Secret Token mismatch"
+msgstr ""
+
+#: api.py:155 api.py:161
 msgid "GitHub request received(event_type={}), will process asynchronously."
 msgstr ""
 
-#: api.py:157
+#: api.py:165
 msgid ""
 "Only pull_request and push events are supported for GitHub webhook, but "
 "received:: {}."
 msgstr ""
 
-#: api.py:179
+#: api.py:179 api.py:182
+msgid "Missing GitLab URL"
+msgstr ""
+
+#: api.py:187
 msgid "Failed to parse homepage URL: {}"
 msgstr ""
 
-#: api.py:185
+#: api.py:196
 msgid "Missing GitLab access token"
 msgstr ""
 
-#: api.py:198 api.py:205
+#: api.py:201 api.py:202
+msgid "GitLab Webhook Secret Token mismatch"
+msgstr ""
+
+#: api.py:211 api.py:217
 msgid "Request received(object_kind={}), will process asynchronously."
 msgstr ""
 
-#: api.py:209
+#: api.py:221
 msgid ""
 "Only merge_request and push events are supported (both Webhook and System "
 "Hook), but received: {}."
@@ -178,185 +190,193 @@ msgstr ""
 msgid "{project_name} Push Event"
 msgstr ""
 
-#: biz/github/webhook_handler.py:26
+#: biz/github/webhook_handler.py:28
 msgid "Detected file deletion via status field: {}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:42
+#: biz/github/webhook_handler.py:44
 msgid "SUPPORTED_EXTENSIONS: {}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:43
+#: biz/github/webhook_handler.py:45
 msgid "After filtering deleted files: {}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:54
+#: biz/github/webhook_handler.py:56
 msgid "After filtering by extension: {}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:84
+#: biz/github/webhook_handler.py:73
+msgid "x-hub-signature-256 header is missing!"
+msgstr ""
+
+#: biz/github/webhook_handler.py:78
+msgid "Request signatures didn't match!"
+msgstr ""
+
+#: biz/github/webhook_handler.py:109
 msgid "Invalid event type: {}. Only 'pull_request' event is supported now."
 msgstr ""
 
-#: biz/github/webhook_handler.py:99
+#: biz/github/webhook_handler.py:124
 #, python-brace-format
 msgid ""
 "Get changes response from GitHub (attempt {attempt}): "
 "{response_status_code}, {response_text}, URL: {url}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:119
+#: biz/github/webhook_handler.py:144
 #, python-brace-format
 msgid ""
 "Changes is empty, retrying in {retry_delay} seconds... (attempt {attempt}/"
 "{max_retries}), URL: {url}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:123
+#: biz/github/webhook_handler.py:148
 #, python-brace-format
 msgid ""
 "Failed to get changes from GitHub (URL: {url}): {response.status_code}, "
 "{response.text}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:126 biz/gitlab/webhook_handler.py:111
+#: biz/github/webhook_handler.py:151 biz/gitlab/webhook_handler.py:117
 msgid "Max retries ({}) reached. Changes is still empty."
 msgstr ""
 
-#: biz/github/webhook_handler.py:141
+#: biz/github/webhook_handler.py:166
 msgid "Get commits response from GitHub: {}, {}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:161 biz/gitlab/webhook_handler.py:130
+#: biz/github/webhook_handler.py:186 biz/gitlab/webhook_handler.py:136
 msgid "Failed to get commits: {}, {}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:174
+#: biz/github/webhook_handler.py:199
 #, python-brace-format
 msgid "Add comment to GitHub PR {url}: {response_status_code}, {response_text}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:176
+#: biz/github/webhook_handler.py:201
 msgid "Comment successfully added to pull request."
 msgstr ""
 
-#: biz/github/webhook_handler.py:178 biz/github/webhook_handler.py:249
+#: biz/github/webhook_handler.py:203 biz/github/webhook_handler.py:274
 msgid "Failed to add comment: {}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:207 biz/github/webhook_handler.py:319
-#: biz/gitlab/webhook_handler.py:178 biz/gitlab/webhook_handler.py:267
+#: biz/github/webhook_handler.py:232 biz/github/webhook_handler.py:344
+#: biz/gitlab/webhook_handler.py:184 biz/gitlab/webhook_handler.py:273
 msgid "Invalid event type: {}. Only 'push' event is supported now."
 msgstr ""
 
-#: biz/github/webhook_handler.py:221 biz/gitlab/webhook_handler.py:192
+#: biz/github/webhook_handler.py:246 biz/gitlab/webhook_handler.py:198
 msgid "Collected {} commits from push event."
 msgstr ""
 
-#: biz/github/webhook_handler.py:227 biz/gitlab/webhook_handler.py:198
+#: biz/github/webhook_handler.py:252 biz/gitlab/webhook_handler.py:204
 msgid "No commits found to add notes to."
 msgstr ""
 
-#: biz/github/webhook_handler.py:233 biz/gitlab/webhook_handler.py:204
+#: biz/github/webhook_handler.py:258 biz/gitlab/webhook_handler.py:210
 msgid "Last commit ID not found."
 msgstr ""
 
-#: biz/github/webhook_handler.py:245
+#: biz/github/webhook_handler.py:270
 #, python-brace-format
 msgid ""
 "Add comment to commit {last_commit_id}: {response_status_code}, "
 "{response_text}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:247
+#: biz/github/webhook_handler.py:272
 msgid "Comment successfully added to push commit."
 msgstr ""
 
-#: biz/github/webhook_handler.py:261
+#: biz/github/webhook_handler.py:286
 #, python-brace-format
 msgid ""
 "Get commits response from GitHub for repository_commits: "
 "{response_status_code}, {response_text}, URL: {url}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:268
+#: biz/github/webhook_handler.py:293
 #, python-brace-format
 msgid ""
 "Failed to get commits for sha {sha}: {response_status_code}, {response_text}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:279
+#: biz/github/webhook_handler.py:304
 #, python-brace-format
 msgid ""
 "Get commit response from GitHub: {response_status_code}, {response_text}, "
 "URL: {url}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:295
+#: biz/github/webhook_handler.py:320
 #, python-brace-format
 msgid ""
 "Get changes response from GitHub for repository_compare: "
 "{response_status_code}, {response_text}, URL: {url}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:313
+#: biz/github/webhook_handler.py:338
 #, python-brace-format
 msgid ""
 "Failed to get changes for repository_compare: {response.status_code}, "
 "{response.text}"
 msgstr ""
 
-#: biz/github/webhook_handler.py:324 biz/gitlab/webhook_handler.py:272
+#: biz/github/webhook_handler.py:349 biz/gitlab/webhook_handler.py:278
 msgid "No commits found in push event."
 msgstr ""
 
-#: biz/github/webhook_handler.py:346
+#: biz/github/webhook_handler.py:371
 msgid ""
 "before or after not found in webhook data, trying to get changes from "
 "commits."
 msgstr ""
 
-#: biz/gitlab/webhook_handler.py:82
+#: biz/gitlab/webhook_handler.py:88
 msgid "Invalid event type: {}. Only 'merge_request' event is supported now."
 msgstr ""
 
-#: biz/gitlab/webhook_handler.py:97
+#: biz/gitlab/webhook_handler.py:103
 msgid "Get changes response from GitLab (attempt {}): {}, {}, URL: {}"
 msgstr ""
 
-#: biz/gitlab/webhook_handler.py:105
+#: biz/gitlab/webhook_handler.py:111
 msgid "Changes is empty, retrying in {} seconds... (attempt {}/{}), URL: {}"
 msgstr ""
 
-#: biz/gitlab/webhook_handler.py:108
+#: biz/gitlab/webhook_handler.py:114
 msgid "Failed to get changes from GitLab (URL: {}): {}, {}"
 msgstr ""
 
-#: biz/gitlab/webhook_handler.py:126
+#: biz/gitlab/webhook_handler.py:132
 msgid "Get commits response from gitlab: {}, {}"
 msgstr ""
 
-#: biz/gitlab/webhook_handler.py:144
+#: biz/gitlab/webhook_handler.py:150
 msgid "Add notes to gitlab {}: {}, {}"
 msgstr ""
 
-#: biz/gitlab/webhook_handler.py:148
+#: biz/gitlab/webhook_handler.py:154
 msgid "Failed to add note: {}"
 msgstr ""
 
-#: biz/gitlab/webhook_handler.py:232
+#: biz/gitlab/webhook_handler.py:238
 msgid ""
 "Get commits response from GitLab for repository_commits: {response."
 "status_code}, {}, URL: {url}"
 msgstr ""
 
-#: biz/gitlab/webhook_handler.py:255
+#: biz/gitlab/webhook_handler.py:261
 msgid ""
 "Get changes response from GitLab for repository_compare: {}, {response."
 "text}, URL: {}"
 msgstr ""
 
-#: biz/gitlab/webhook_handler.py:261
+#: biz/gitlab/webhook_handler.py:267
 msgid "Failed to get changes for repository_compare: {}, {}"
 msgstr ""
 
@@ -403,59 +423,59 @@ msgstr ""
 msgid "Unknown chat model provider: {provider}"
 msgstr ""
 
-#: biz/queue/worker.py:30 biz/queue/worker.py:95 biz/queue/worker.py:138
-#: biz/queue/worker.py:202
+#: biz/queue/worker.py:30 biz/queue/worker.py:98 biz/queue/worker.py:137
+#: biz/queue/worker.py:205
 msgid "Failed to get commits"
 msgstr ""
 
-#: biz/queue/worker.py:41 biz/queue/worker.py:149
+#: biz/queue/worker.py:41 biz/queue/worker.py:148
 msgid "未检测到PUSH代码的修改,修改文件可能不满足SUPPORTED_EXTENSIONS。"
 msgstr ""
 
-#: biz/queue/worker.py:42 biz/queue/worker.py:150
+#: biz/queue/worker.py:42 biz/queue/worker.py:149
 msgid "关注的文件没有修改"
 msgstr ""
 
-#: biz/queue/worker.py:49 biz/queue/worker.py:103 biz/queue/worker.py:210
+#: biz/queue/worker.py:49 biz/queue/worker.py:106 biz/queue/worker.py:213
 msgid ""
 "Auto Review Result: \n"
 "{}"
 msgstr ""
 
-#: biz/queue/worker.py:64 biz/queue/worker.py:171 biz/queue/worker.py:228
+#: biz/queue/worker.py:63 biz/queue/worker.py:170 biz/queue/worker.py:231
 msgid "服务出现未知错误: {}"
 msgstr ""
 
-#: biz/queue/worker.py:66 biz/queue/worker.py:129 biz/queue/worker.py:173
-#: biz/queue/worker.py:230
+#: biz/queue/worker.py:65 biz/queue/worker.py:128 biz/queue/worker.py:172
+#: biz/queue/worker.py:233
 msgid "出现未知错误: {}"
 msgstr ""
 
-#: biz/queue/worker.py:81
+#: biz/queue/worker.py:80
 msgid "Merge Request Hook event received"
 msgstr ""
 
-#: biz/queue/worker.py:86 biz/queue/worker.py:146 biz/queue/worker.py:193
-msgid "changes: {}"
-msgstr ""
-
-#: biz/queue/worker.py:89 biz/queue/worker.py:196
-msgid "未检测到有关代码的修改,修改文件可能不满足SUPPORTED_EXTENSIONS。"
-msgstr ""
-
-#: biz/queue/worker.py:124
+#: biz/queue/worker.py:83
 msgid "Merge Request Hook event, action={}, ignored."
 msgstr ""
 
-#: biz/queue/worker.py:127
+#: biz/queue/worker.py:89 biz/queue/worker.py:145 biz/queue/worker.py:196
+msgid "changes: {}"
+msgstr ""
+
+#: biz/queue/worker.py:92 biz/queue/worker.py:199
+msgid "未检测到有关代码的修改,修改文件可能不满足SUPPORTED_EXTENSIONS。"
+msgstr ""
+
+#: biz/queue/worker.py:126
 msgid "AI Code Review 服务出现未知错误: {}"
 msgstr ""
 
-#: biz/queue/worker.py:135
+#: biz/queue/worker.py:134
 msgid "GitHub Push event received"
 msgstr ""
 
-#: biz/queue/worker.py:188
+#: biz/queue/worker.py:187
 msgid "GitHub Pull Request event received"
 msgstr ""
 
@@ -610,35 +630,62 @@ msgstr ""
 msgid "企业微信推送未启用"
 msgstr ""
 
-#: biz/utils/im/wecom.py:90
-#, python-brace-format
-msgid "发送企业微信消息: url={post_url}, data={data}"
-msgstr ""
-
-#: biz/utils/im/wecom.py:94
-msgid "企业微信消息发送失败! webhook_url:{}, error_msg:{}"
-msgstr ""
-
-#: biz/utils/im/wecom.py:96
-msgid "Markdown 消息过长，尝试发送纯文本"
-msgstr ""
-
-#: biz/utils/im/wecom.py:100
-msgid "企业微信消息发送成功! webhook_url: {}"
-msgstr ""
-
 #: biz/utils/im/wecom.py:103
-msgid "企业微信消息发送失败!"
+#, python-brace-format
+msgid ""
+"消息内容超过 {MAX_CONTENT_BYTES} 字节限制，将分割发送。总长度: "
+"{content_length} 字节"
 msgstr ""
 
-#: biz/utils/im/wecom.py:112
+#: biz/utils/im/wecom.py:108
+#, python-brace-format
+msgid "企业微信消息发送失败! {e}"
+msgstr ""
+
+#: biz/utils/im/wecom.py:116
+msgid "{title} (第{}/{}部分)"
+msgstr ""
+
+#: biz/utils/im/wecom.py:116
+msgid "消息 (第{}/{)}部分)"
+msgstr ""
+
+#: biz/utils/im/wecom.py:151
+msgid ""
+"发送企业微信消息{} {chunk_num}/{total_chunks}: url={post_url}, data={data}"
+msgstr ""
+
+#: biz/utils/im/wecom.py:152 biz/utils/im/wecom.py:159
+#: biz/utils/im/wecom.py:162
+msgid "分块"
+msgstr ""
+
+#: biz/utils/im/wecom.py:157
+#, python-brace-format
+msgid "企业微信消息发送失败! webhook_url:{post_url}, errmsg:{response}"
+msgstr ""
+
+#: biz/utils/im/wecom.py:159
+msgid "企业微信消息{}发送成功! webhook_url:{post_url}"
+msgstr ""
+
+#: biz/utils/im/wecom.py:162
+msgid "企业微信消息{}发送失败! {e}"
+msgstr ""
+
+#: biz/utils/im/wecom.py:171
 #, python-brace-format
 msgid "企业微信消息发送请求失败! url:{url}, error: {e}"
 msgstr ""
 
-#: biz/utils/im/wecom.py:114
+#: biz/utils/im/wecom.py:173
 #, python-brace-format
 msgid "企业微信返回的 JSON 解析失败! url:{url}, error: {e}"
+msgstr ""
+
+#: biz/utils/im/wecom.py:183
+#, python-brace-format
+msgid "不支持的消息类型: {msg_type}"
 msgstr ""
 
 #: biz/utils/reporter.py:13
